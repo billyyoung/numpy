@@ -255,6 +255,12 @@ class TestBoolArray(TestCase):
         self.im[3] = False
         self.im[-2] = False
 
+        # arrays containing objects
+        self.ones   = np.ones(5, dtype='O')
+        self.mixed1 = array([3, None, False, True, "hello", ""])
+        self.obj1   = array([dtype('O'), 2, 0])
+        self.obj2   = array([1, dtype('O'), 2, 0])
+
     def test_all_any(self):
         self.assertTrue(self.t.all())
         self.assertTrue(self.t.any())
@@ -264,6 +270,17 @@ class TestBoolArray(TestCase):
         self.assertTrue(self.im.any())
         self.assertFalse(self.nm.all())
         self.assertFalse(self.im.all())
+
+        # ensure all and any return results with booleans
+        self.assertTrue(self.ones.all())
+        self.assertTrue(self.ones.any())
+        self.assertFalse(self.mixed1.all())
+        self.assertTrue(self.mixed1.any())
+        self.assertFalse(self.obj1.all())
+        self.assertTrue(self.obj1.any())
+        self.assertFalse(self.obj2.all())
+        self.assertTrue(self.obj2.any())
+
         # check bad element in all positions
         for i in range(256 - 7):
             d = array([False] * 256, dtype=np.bool)[7::]

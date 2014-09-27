@@ -35,10 +35,12 @@ def _prod(a, axis=None, dtype=None, out=None, keepdims=False):
     return umr_prod(a, axis, dtype, out, keepdims)
 
 def _any(a, axis=None, dtype=None, out=None, keepdims=False):
-    return umr_any(a, axis, dtype, out, keepdims)
+    # want the result to be in booleans, not objects
+    return umr_any(a, axis, bool, out, keepdims)
 
 def _all(a, axis=None, dtype=None, out=None, keepdims=False):
-    return umr_all(a, axis, dtype, out, keepdims)
+    # want the result to be in booleans, not objects
+    return umr_all(a, axis, bool, out, keepdims)
 
 def _count_reduce_items(arr, axis):
     if axis is None:
